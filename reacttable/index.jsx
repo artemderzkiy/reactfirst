@@ -27,30 +27,32 @@ class Dratuti extends React.Component {
     loadProm(url)
     .then(users => {
       this.initialData = JSON.parse(users);
-      console.log(this.initialData);
+      //console.log(this.initialData);
       this.setState({
         data: this.initialData
     });
   });
 }
 
- updateData(config) {
+updateData(config) {
     this.setState(config);
-  }
+}
 
 
 
 render() {
     return (
-        <div >
-        <ClickString data={this.state.data} active={this.state.active} />
-        <Search  />
+        <div>
+              <Search term={this.state.term} data={this.initialData}  update={this.updateData.bind(this)} /> 
+            <div className="row">
+                <div className="col-sm-3 col-md-3">
+                    <ClickString data={this.state.data} active={this.state.active}/>
+                </div>
+                <div className="col-sm-9 col-md-9">       
+                    <Table data={this.state.data} update={this.updateData.bind(this)} />
+                </div>
+            </div> 
 
-        <Table data={this.state.data} update={this.updateData.bind(this)} />
-
-
-        <h1>DRATUTI</h1>
-        <img src="https://pp.vk.me/c543105/v543105541/21d59/RARcrSvPLZI.jpg"/>
         </div>
         )
 }

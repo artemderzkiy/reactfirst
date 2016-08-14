@@ -1,19 +1,31 @@
 import React from 'react';
 
-export default class Search extends React.Component {
-	render() {
-		return (
-			<div>
-			
-			<label>Find name</label>
-			<input type="search" ref="name" placeholder="Type name"/>
-			
-			</div>
-			)
-	}
+export default ({ term, data, update }) => {
 
+  const dataSearch = e => {
+    const value = e.target.value.toLowerCase();
 
- }
+    const filter = data.filter(user => {
+      return user.last_name.toLowerCase().includes(value);
+    });
 
+    update({
+      data: filter,
+      active: 0,
+      term: value
+    });
+    
+  };
 
- 
+  return (
+    <div className="searchbar">
+      <input
+        value={term}
+        type="text"
+        className="form-control"
+        placeholder="Search by last name"
+        onChange={dataSearch}
+      />
+    </div>
+  );
+};
