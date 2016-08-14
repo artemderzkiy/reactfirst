@@ -1,45 +1,60 @@
-//require("./index.css");
+require("./index.css");
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Search from './src/search';
+import Table from './src/table';
+import ClickString from './src/clickstring';
 import {API} from './src/utils/constants';
-
+import loadProm from './src/utils/loadProm';
 
 
 class Dratuti extends React.Component {
     constructor(props) {
         super(props)
 
-// this.state = {
-//     id: '',
-//     first_name: "",
-//     last_name: "",
-//     email: '',
-//     gender: "",
-//     avatar: ""
-//     }
- }
+        this.state = {
+           data : null,
+           active : 0,
+           term : ''
+       }
+       this.loadData();
+   }
 
 
-fetchData() {
-    let url = '${API}';
-    fetch(url, {method:'GET'})
-    .then((res)=>res.json())
-    
-    .catch((error)=> console.log("error SUKA BLYAT" + error))
 
+   loadData() {
+    let url = `${API}`
+    loadProm(url)
+    .then(users => {
+      this.initialData = JSON.parse(users);
+      console.log(this.initialData);
+      this.setState({
+        data: this.initialData
+    });
+  });
 }
+
+ updateData(config) {
+    this.setState(config);
+  }
+
+
 
 render() {
     return (
-        <div>
-        <Search fetchData={this.fetchData.bind(this)} />
+        <div >
+        <ClickString data={this.state.data} active={this.state.active} />
+        <Search  />
+
+        <Table data={this.state.data} update={this.updateData.bind(this)} />
+
+
         <h1>DRATUTI</h1>
         <img src="https://pp.vk.me/c543105/v543105541/21d59/RARcrSvPLZI.jpg"/>
         </div>
         )
 }
 }
-//Dratuti.fetchData();
+
 ReactDOM.render(<Dratuti /> , document.getElementById("app"));
 

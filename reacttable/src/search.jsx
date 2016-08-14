@@ -13,13 +13,6 @@ export default class Search extends React.Component {
 	}
 
 
-// handleForm(e) {
-// 		e.preventDefault();
-// 		let name = this.refs.name.value;
-// 		this.props.fetchData(name);
-// 		this.refs.name.value = '';
-// 	}
-
  }
 
 
