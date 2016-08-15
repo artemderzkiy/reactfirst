@@ -1,35 +1,40 @@
 import React from 'react';
 import OneString from './onestring';
-import Toolbar from './sort';
 
 
+export default class Table extends React.Component {
+  constructor(props) 
+  {
+    super(props);  
+  }
 
-export default ({ data, update }) => {
-  if (!data) { return (<p>Loading!! WAIT!!</p>); }
-
-  const users = data.map((user, index) => {
+  render(){
+   let data=this.props.data;
+   let update=this.props.update;
+   if (!data) { return (<p>Loading!! WAIT!!</p>); }
+   const users = data.map((user, index) => {
     return (
       <OneString user={user} index={index} key={`user-${index}`} update={update} />
       );
   });
 
-  return (
-   
+   return (
+     
     <table className="table table-hover">
-      <thead>
-        <tr>
-          <th>First name</th>
-          <th>Last name
-          <Toolbar />
-          </th>
-          <th>Avatar</th>
-           </tr>
-      </thead>
+    <thead>
+    <tr>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Avatar</th>
+    </tr>
+    </thead>
 
-      <tbody>
-        {users}
-      </tbody>
+    <tbody>
+    {users}
+    </tbody>
     </table>
     
-  );
-};
+    );
+
+ }
+}
